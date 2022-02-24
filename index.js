@@ -14,7 +14,7 @@ function trimProperties(obj) {
   }
   return newObj
 }
-
+console.log("1> trimProperties:", trimProperties({ foo: '  foo ', bar: 'bar ', baz: ' baz' }))
 /**
  * [Exercise 2] trimPropertiesMutation trims in place the properties of an object
  * @param {object} obj - an object with properties that are strings
@@ -25,8 +25,12 @@ function trimProperties(obj) {
  */
 function trimPropertiesMutation(obj) {
   // ✨ implement
+  for (key in obj){
+    obj[key] = obj[key].trim()
+  }
+  return obj
 }
-
+console.log("2> trimPropertiesMutation:", trimPropertiesMutation({ name: '  jane  ' }))
 /**
  * [Exercise 3] findLargestInteger finds the largest integer in an array of objects { integer: 1 }
  * @param {object[]} integers - an array of objects
