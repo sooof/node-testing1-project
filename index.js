@@ -41,7 +41,19 @@ console.log("2> trimPropertiesMutation:", trimPropertiesMutation({ name: '  jane
  */
 function findLargestInteger(integers) {
   // ✨ implement
+  let largest = 0
+  integers.map( integer=>{
+    for(key in integer){
+      // console.log(integer[key])
+      if(largest < integer[key]){
+        largest = integer[key]
+      }
+    }
+  })
+  return largest
 }
+console.log("3> findLargestInteger:", findLargestInteger([{ integer: 1 }, { integer: 3 }, { integer: 2 }]))
+
 
 class Counter {
   /**
@@ -50,6 +62,8 @@ class Counter {
    */
   constructor(initialNumber) {
     // ✨ initialize whatever properties are needed
+    this.number = initialNumber
+    this.result = 0
   }
 
   /**
@@ -66,15 +80,27 @@ class Counter {
    */
   countDown() {
     // ✨ implement
+    this.result = this.number
+    if(this.result != 0){
+      this.number = this.number -1
+    }
+    return this.result
   }
 }
-
+const counter = new Counter(3)
+console.log("4> 1-Counter:", counter.countDown())
+console.log("4> 2-Counter:", counter.countDown())
+console.log("4> 3-Counter:", counter.countDown())
+console.log("4> 4-Counter:", counter.countDown())
+console.log("4> 5-Counter:", counter.countDown())
+console.log("4> 6-Counter:", counter.countDown())
 class Seasons {
   /**
    * [Exercise 5A] Seasons creates a seasons object
    */
   constructor() {
     // ✨ initialize whatever properties are needed
+    this.currentSeason = ''
   }
 
   /**
@@ -91,8 +117,20 @@ class Seasons {
    */
   next() {
     // ✨ implement
+    if(this.currentSeason===''){ return this.currentSeason = 'summer'}
+    else if(this.currentSeason==='summer'){return this.currentSeason = 'fall'}
+    else if(this.currentSeason==='fall'){return this.currentSeason = 'winter'}
+    else if(this.currentSeason==='winter'){return this.currentSeason = 'spring'}
+    else if(this.currentSeason==='spring'){return this.currentSeason = 'summer'}
   }
 }
+const seasons = new Seasons()
+console.log("5> 1-Seasons:", seasons.next())
+console.log("5> 2-Seasons:", seasons.next())
+console.log("5> 3-Seasons:", seasons.next())
+console.log("5> 4-Seasons:", seasons.next())
+console.log("5> 5-Seasons:", seasons.next())
+
 
 class Car {
   /**
@@ -104,7 +142,10 @@ class Car {
   constructor(name, tankSize, mpg) {
     this.odometer = 0 // car initilizes with zero miles
     this.tank = tankSize // car initiazes full of gas
-    // ✨ initialize whatever other properties are needed
+    // ✨ initialize whatever other properties are needed    this.name = name
+    this.mpg = mpg
+    this.candrive = this.tank * this.mpg
+
   }
 
   /**
@@ -122,6 +163,17 @@ class Car {
    */
   drive(distance) {
     // ✨ implement
+    const maxDistance = this.tank * this.mpg
+    if(maxDistance >= distance){
+      // this.candrive = this.candrive - distance
+      this.tank = this.tank - (distance/this.mpg)
+      this.odometer = this.odometer + distance
+      
+    }else if(maxDistance < distance) {
+      this.tank = 0
+      this.odometer = this.odometer + maxDistance
+    }
+    return this.odometer 
   }
 
   /**
@@ -137,8 +189,23 @@ class Car {
    */
   refuel(gallons) {
     // ✨ implement
+    if(this.tank + gallons <= 20){
+      this.tank = this.tank + gallons
+    }else {
+      this.tank = 20
+    }
+    return this.tank
   }
 }
+
+const focus = new Car('focus', 20, 30)
+console.log("6> 1-drive car:", focus.drive(600))
+console.log("6> refuel car:", focus.refuel(20))
+console.log("6> 1-drive car:", focus.drive(100))
+console.log("6> 1-drive car:", focus.drive(600))
+console.log("6> 1-drive car:", focus.drive(600))
+console.log("6> refuel car:", focus.refuel(20))
+console.log("6> 1-drive car:", focus.drive(100))
 
 /**
  * [Exercise 7] Asynchronously resolves whether a number is even
@@ -155,8 +222,10 @@ class Car {
  */
 function isEvenNumberAsync(number) {
   // ✨ implement
+  return number%2 ? false : true
 }
-
+console.log("7> the number 2 to test for evenness is ", isEvenNumberAsync(2))
+console.log("7> the number 3 to test for evenness is ", isEvenNumberAsync(3))
 module.exports = {
   trimProperties,
   trimPropertiesMutation,
